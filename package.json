@@ -1,0 +1,27 @@
+{
+  "name": "@seasonjs/log",
+  "version": "0.0.1",
+  "description": "Js log library which copy from vscode",
+  "main": "dist/log.umd.js",
+  "module": "dist/log.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "compile": "vite build && tsc -p tsconfig.json",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "preview:coverage": "vite preview --outDir ./coverage"
+  },
+  "keywords": [],
+  "author": "Cyberhan123",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "@vitest/coverage-c8": "^0.31.0",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5",
+    "vitest": "^0.31.0"
+  }
+}
