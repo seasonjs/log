@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { CharCode } from './charCode';
-import { MarshalledId } from 'vs/base/common/marshallingIds';
+import { MarshalledId } from './marshallingIds';
 import * as paths from './path';
 import { isWindows } from './platform';
 
@@ -385,33 +385,6 @@ export class URI implements UriComponents {
 
 	toJSON(): UriComponents {
 		return this;
-	}
-
-	/**
-	 * A helper function to revive URIs.
-	 *
-	 * **Note** that this function should only be used when receiving URI#toJSON generated data
-	 * and that it doesn't do any validation. Use {@link URI.from} when received "untrusted"
-	 * uri components such as command arguments or data from storage.
-	 *
-	 * @param data The URI components or URI to revive.
-	 * @returns The revived URI or undefined or null.
-	 */
-	static revive(data: UriComponents | URI): URI;
-	static revive(data: UriComponents | URI | undefined): URI | undefined;
-	static revive(data: UriComponents | URI | null): URI | null;
-	static revive(data: UriComponents | URI | undefined | null): URI | undefined | null;
-	static revive(data: UriComponents | URI | undefined | null): URI | undefined | null {
-		if (!data) {
-			return data;
-		} else if (data instanceof URI) {
-			return data;
-		} else {
-			const result = new Uri(data);
-			result._formatted = (<UriState>data).external ?? null;
-			result._fsPath = (<UriState>data)._sep === _pathSepMarker ? (<UriState>data).fsPath ?? null : null;
-			return result;
-		}
 	}
 }
 

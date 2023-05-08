@@ -14,7 +14,7 @@
     "coverage": "vitest run --coverage",
     "preview:coverage": "vite preview --outDir ./coverage"
   },
-  "keywords": [],
+  "keywords": ["log","logger","vsocde","spdlog","logService"],
   "author": "Cyberhan123",
   "license": "MIT",
   "devDependencies": {
@@ -23,5 +23,8 @@
     "typescript": "^5.0.4",
     "vite": "^4.3.5",
     "vitest": "^0.31.0"
+  },
+  "optionalDependencies": {
+    "@vscode/spdlog": "^0.13.11"
   }
 }

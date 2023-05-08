@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 
 
-import { generateUuid } from '../../base';
+import {generateUuid, URI} from '../../base';
 import { AbstractLoggerService, ILogger, ILoggerOptions, ILoggerService, LogLevel } from '../log';
 import { SpdLogLogger } from './spdlogLog';
 
 export class LoggerService extends AbstractLoggerService implements ILoggerService {
 
 	protected doCreateLogger(resource: URI, logLevel: LogLevel, options?: ILoggerOptions): ILogger {
-		return new SpdLogLogger(generateUuid(), resource.filePath, !options?.donotRotate, !!options?.donotUseFormatters, logLevel);
+		return new SpdLogLogger(generateUuid(), resource.fsPath, !options?.donotRotate, !!options?.donotUseFormatters, logLevel);
 	}
 }
