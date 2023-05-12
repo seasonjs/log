@@ -1,40 +1,48 @@
 lockfileVersion: '6.0'
 
-dependencies:
-  readable-stream:
-    specifier: ^4.4.0
-    version: 4.4.0
-  rotating-file-stream:
-    specifier: ^3.1.0
-    version: 3.1.0
+importers:
 
-optionalDependencies:
-  '@vscode/spdlog':
-    specifier: ^0.13.11
-    version: 0.13.11
+  .:
+    dependencies:
+      readable-stream:
+        specifier: ^4.4.0
+        version: 4.4.0
+      rotating-file-stream:
+        specifier: ^3.1.0
+        version: 3.1.0
+    optionalDependencies:
+      '@vscode/spdlog':
+        specifier: ^0.13.11
+        version: 0.13.11
+    devDependencies:
+      '@types/node':
+        specifier: ^18.16.3
+        version: 18.16.5
+      '@types/readable-stream':
+        specifier: ^2.3.15
+        version: 2.3.15
+      '@vitest/coverage-c8':
+        specifier: ^0.31.0
+        version: 0.31.0(vitest@0.31.0)
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      vite:
+        specifier: ^4.3.5
+        version: 4.3.5(@types/node@18.16.5)
+      vitest:
+        specifier: ^0.31.0
+        version: 0.31.0
 
-devDependencies:
-  '@types/node':
-    specifier: ^18.16.3
-    version: 18.16.5
-  '@types/readable-stream':
-    specifier: ^2.3.15
-    version: 2.3.15
-  '@vitest/coverage-c8':
-    specifier: ^0.31.0
-    version: 0.31.0(vitest@0.31.0)
-  rollup-plugin-node-polyfills:
-    specifier: ^0.2.1
-    version: 0.2.1
-  typescript:
-    specifier: ^5.0.4
-    version: 5.0.4
-  vite:
-    specifier: ^4.3.5
-    version: 4.3.5(@types/node@18.16.5)
-  vitest:
-    specifier: ^0.31.0
-    version: 0.31.0
+  example/log-service:
+    dependencies:
+      '@seasonjs/log':
+        specifier: workspace:*
+        version: link:../..
+    devDependencies:
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
 
 packages:
 
@@ -602,10 +610,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /estree-walker@0.6.1:
-    resolution: {integrity: sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==}
-    dev: true
-
   /esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
@@ -769,12 +773,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
-    dev: true
-
-  /magic-string@0.25.9:
-    resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
-    dependencies:
-      sourcemap-codec: 1.4.8
     dev: true
 
   /magic-string@0.30.0:
@@ -952,27 +950,6 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup-plugin-inject@3.0.2:
-    resolution: {integrity: sha512-ptg9PQwzs3orn4jkgXJ74bfs5vYz1NCZlSQMBUA0wKcGp5i5pA1AO3fOUEte8enhGUC+iapTCzEWw2jEFFUO/w==}
-    deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-inject.
-    dependencies:
-      estree-walker: 0.6.1
-      magic-string: 0.25.9
-      rollup-pluginutils: 2.8.2
-    dev: true
-
-  /rollup-plugin-node-polyfills@0.2.1:
-    resolution: {integrity: sha512-4kCrKPTJ6sK4/gLL/U5QzVT8cxJcofO0OU74tnB19F40cmuAKSzH5/siithxlofFEjwvw1YAhPmbvGNA6jEroA==}
-    dependencies:
-      rollup-plugin-inject: 3.0.2
-    dev: true
-
-  /rollup-pluginutils@2.8.2:
-    resolution: {integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==}
-    dependencies:
-      estree-walker: 0.6.1
-    dev: true
-
   /rollup@3.21.5:
     resolution: {integrity: sha512-a4NTKS4u9PusbUJcfF4IMxuqjFzjm6ifj76P54a7cKnvVzJaG12BLVR+hgU2YDGHzyMMQNxLAZWuALsn8q2oQg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
@@ -1026,11 +1003,6 @@ packages:
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
-    dev: true
-
-  /sourcemap-codec@1.4.8:
-    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    deprecated: Please use @jridgewell/sourcemap-codec instead
     dev: true
 
   /stackback@0.0.2:

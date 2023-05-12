@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "baseUrl": "./src",
     "declarationDir": "./dist",
+    "esModuleInterop": true,
     "lib": [
       "dom",
       "es2021.promise"

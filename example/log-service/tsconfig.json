@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "declaration": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+  },
+  "include": [
+    "index.ts",
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}

@@ -1,7 +1,13 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) seasonjs. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
 export {
   toDisposable,
   DisposableStore,
   Disposable,
+  URI
 } from './base'
 
 export type {IDisposable, IReference} from './base'

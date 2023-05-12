@@ -11,15 +11,10 @@ export default defineConfig(() => {
         // Could also be a dictionary or array of multiple entry points
         entry: {
           log: resolve(__dirname, 'src/index.ts'),
-          'node/log': resolve(__dirname, 'src/log/node/loggerService.ts')
+          node: resolve(__dirname, 'src/node.ts')
         },
       },
       rollupOptions: {
-        output: {
-          globals: {
-            log: 'log',
-          },
-        },
         external: builtins
       },
     },

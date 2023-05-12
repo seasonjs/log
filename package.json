@@ -1,6 +1,6 @@
 {
   "name": "@seasonjs/log",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Js log library which copy from vscode",
   "main": "dist/log.js",
   "module": "dist/log.mjs",
@@ -15,11 +15,18 @@
       "require": "./dist/log.js"
     },
     "./node": {
-      "types": "./dist/log/node/logService.d.ts",
-      "import": "./dist/node/log.mjs",
-      "require": "./dist/node/log.js"
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.mjs",
+      "require": "./dist/node.js"
     },
     "./package.json": "./package.json"
+  },
+  "//": "https://github.com/microsoft/TypeScript/issues/50794#issuecomment-1251278131",
+  "typesVersions": {
+    "*": {
+      "node": ["./dist/node.d.ts"],
+      "*": ["./dist/index.d.ts"]
+    }
   },
   "scripts": {
     "compile": "vite build && tsc -p tsconfig.json",
@@ -36,11 +43,17 @@
   ],
   "author": "Cyberhan123",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seasonjs/log.git"
+  },
+  "bugs": {
+    "url": "https://github.com/seasonjs/log/issues"
+  },
   "devDependencies": {
     "@types/node": "^18.16.3",
     "@types/readable-stream": "^2.3.15",
     "@vitest/coverage-c8": "^0.31.0",
-    "rollup-plugin-node-polyfills": "^0.2.1",
     "typescript": "^5.0.4",
     "vite": "^4.3.5",
     "vitest": "^0.31.0"
