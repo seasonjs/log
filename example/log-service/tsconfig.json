@@ -7,16 +7,11 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    "lib": [
-      "dom",
-      "es2021.promise"
-    ]
   },
   "include": [
     "index.ts",
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
   ]
 }

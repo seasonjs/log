@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) seasonjs. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
 import path from "node:path"
 import {LogService, ConsoleLogger, DEFAULT_LOG_LEVEL, URI, BufferLogger} from '@seasonjs/log'
 import {LoggerService} from '@seasonjs/log/node'
