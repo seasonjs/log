@@ -39,7 +39,3 @@ export {
 export {
   BufferLogger
 } from "./log/bufferLog"
-
-export {
-  LoggerService
-} from "./log/node/loggerService"

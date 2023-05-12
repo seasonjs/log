@@ -2,29 +2,54 @@
   "name": "@seasonjs/log",
   "version": "0.0.1",
   "description": "Js log library which copy from vscode",
-  "main": "dist/log.umd.js",
+  "main": "dist/log.js",
   "module": "dist/log.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/log.mjs",
+      "require": "./dist/log.js"
+    },
+    "./node": {
+      "types": "./dist/log/node/logService.d.ts",
+      "import": "./dist/node/log.mjs",
+      "require": "./dist/node/log.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "compile": "vite build && tsc -p tsconfig.json",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "preview:coverage": "vite preview --outDir ./coverage"
   },
-  "keywords": ["log","logger","vsocde","spdlog","logService"],
+  "keywords": [
+    "log",
+    "logger",
+    "vsocde",
+    "spdlog",
+    "logService"
+  ],
   "author": "Cyberhan123",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.16.3",
+    "@types/readable-stream": "^2.3.15",
     "@vitest/coverage-c8": "^0.31.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
     "typescript": "^5.0.4",
     "vite": "^4.3.5",
     "vitest": "^0.31.0"
   },
   "optionalDependencies": {
     "@vscode/spdlog": "^0.13.11"
+  },
+  "dependencies": {
+    "readable-stream": "^4.4.0",
+    "rotating-file-stream": "^3.1.0"
   }
 }

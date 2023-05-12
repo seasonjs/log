@@ -1,6 +1,7 @@
 <img src="https://github.com//seasonjs/tools/blob/main/public/icon.svg?raw=true" width="150" alt=''>
 
 # @seasonjs/log
+
 Js log library which copy from vscode
 
 
@@ -28,4 +29,29 @@ yarn add @seasonjs/log
 pnpm
 ```bash
 pnpm add @seasonjs/log
+```
+
+### example usage
+
+just console log
+
+```typescript
+import {LogService, ConsoleLogger} from '@seasonjs/log'
+
+const logger = new LogService(new ConsoleLogger(LogLevel.Debug))
+logger.info("this is an info")
+```
+
+use with node and write to file
+
+```typescript
+import path from "node:path"
+import {LogService, ConsoleLogger, DEFAULT_LOG_LEVEL, URI, BufferLogger} from '@seasonjs/log'
+import {LoggerService} from '@seasonjs/log/node'
+
+const uri = URI.file(path.join(__dirname, './.test_data/log'))
+const loggerService = new LoggerService(DEFAULT_LOG_LEVEL, uri)
+const bufferLogger = new BufferLogger(loggerService.getLogLevel());
+const logger = new LogService(new ConsoleLogger(loggerService.getLogLevel()), [bufferLogger])
+logger.info("this is an info")
 ```

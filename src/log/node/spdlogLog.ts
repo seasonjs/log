@@ -3,9 +3,11 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import type {Logger as spdlogLogger} from '@vscode/spdlog';
+import {Logger as SpdlogLogger} from '@vscode/spdlog';
 import {ByteSize} from '../../files';
 import {AbstractMessageLogger, ILogger, LogLevel} from '../log';
+import {createDegradedLogLogger, DegradedLog} from "./degradedLog";
+
 
 enum SpdLogLevel {
   Trace,
@@ -17,7 +19,8 @@ enum SpdLogLevel {
   Off
 }
 
-async function createSpdLogLogger(name: string, logfilePath: string, filesize: number, filecount: number, donotUseFormatters: boolean): Promise<spdlogLogger | null> {
+
+async function createDegradeableLogger(name: string, logfilePath: string, filesize: number, filecount: number, donotUseFormatters: boolean): Promise<SpdlogLogger | DegradedLog> {
   // Do not crash if spdlog cannot be loaded
   try {
     const _spdlog = await import('@vscode/spdlog');
@@ -31,8 +34,8 @@ async function createSpdLogLogger(name: string, logfilePath: string, filesize: n
     return logger;
   } catch (e) {
     console.error(e);
+    return createDegradedLogLogger(name, logfilePath, filesize, filecount, donotUseFormatters)
   }
-  return null;
 }
 
 interface ILog {
@@ -40,7 +43,7 @@ interface ILog {
   message: string;
 }
 
-function log(logger: spdlogLogger, level: LogLevel, message: string): void {
+function log(logger: SpdlogLogger, level: LogLevel, message: string): void {
   switch (level) {
     case LogLevel.Trace:
       logger.trace(message);
@@ -64,7 +67,7 @@ function log(logger: spdlogLogger, level: LogLevel, message: string): void {
   }
 }
 
-function setLogLevel(logger: spdlogLogger, level: LogLevel): void {
+function setLogLevel(logger: SpdlogLogger, level: LogLevel): void {
   switch (level) {
     case LogLevel.Trace:
       logger.setLevel(SpdLogLevel.Trace);
@@ -93,7 +96,7 @@ export class SpdLogLogger extends AbstractMessageLogger implements ILogger {
 
   private buffer: ILog[] = [];
   private readonly _loggerCreationPromise: Promise<void>;
-  private _logger: spdlogLogger | undefined;
+  private _logger: SpdlogLogger | DegradedLog;
 
   constructor(
     name: string,
@@ -104,31 +107,46 @@ export class SpdLogLogger extends AbstractMessageLogger implements ILogger {
   ) {
     super();
     this.setLevel(level);
-    this._loggerCreationPromise = this._createSpdLogLogger(name, filepath, rotating, donotUseFormatters);
+    this._loggerCreationPromise = this._createDegradableLogger(name, filepath, rotating, donotUseFormatters);
     this._register(this.onDidChangeLogLevel(level => {
       if (this._logger) {
-        setLogLevel(this._logger, level);
+        if (this._logger instanceof SpdlogLogger) {
+          setLogLevel(this._logger, level);
+        }
+        if (this._logger instanceof DegradedLog) {
+          this._logger.setLevel(level)
+        }
       }
     }));
   }
 
-  private async _createSpdLogLogger(name: string, filepath: string, rotating: boolean, donotUseFormatters: boolean): Promise<void> {
+  private async _createDegradableLogger(name: string, filepath: string, rotating: boolean, donotUseFormatters: boolean): Promise<void> {
     const filecount = rotating ? 6 : 1;
     const filesize = (30 / filecount) * ByteSize.MB;
-    const logger = await createSpdLogLogger(name, filepath, filesize, filecount, donotUseFormatters);
+    const logger = await createDegradeableLogger(name, filepath, filesize, filecount, donotUseFormatters);
     if (logger) {
       this._logger = logger;
-      setLogLevel(this._logger, this.getLevel());
       for (const {level, message} of this.buffer) {
-        log(this._logger, level, message);
+        if (this._logger instanceof SpdlogLogger) {
+          log(this._logger, level, message);
+        }
+        if (this._logger instanceof DegradedLog) {
+          this._logger.log(level, message)
+        }
       }
       this.buffer = [];
     }
   }
 
+
   protected log(level: LogLevel, message: string): void {
     if (this._logger) {
-      log(this._logger, level, message);
+      if (this._logger instanceof SpdlogLogger) {
+        log(this._logger, level, message);
+      }
+      if (this._logger instanceof DegradedLog) {
+        this._logger.log(level, message)
+      }
     } else if (this.getLevel() <= level) {
       this.buffer.push({level, message});
     }

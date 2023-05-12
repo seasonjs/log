@@ -649,7 +649,6 @@ export abstract class AbstractLoggerService extends Disposable implements ILogge
       }
     };
     this.registerLogger(loggerEntry.info);
-    // TODO: @sandy081 Remove this once registerLogger can take ILogger
     this._loggers.set(resource, loggerEntry);
     return logger;
   }
