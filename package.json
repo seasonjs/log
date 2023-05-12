@@ -4,6 +4,7 @@
   "description": "Js log library which copy from vscode",
   "main": "dist/log.js",
   "module": "dist/log.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -19,6 +20,13 @@
       "require": "./dist/node.js"
     },
     "./package.json": "./package.json"
+  },
+  "//": "https://github.com/microsoft/TypeScript/issues/50794#issuecomment-1251278131",
+  "typesVersions": {
+    "*": {
+      "node": ["./dist/node.d.ts"],
+      "*": ["./dist/index.d.ts"]
+    }
   },
   "scripts": {
     "compile": "vite build && tsc -p tsconfig.json",
