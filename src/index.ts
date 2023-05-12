@@ -2,6 +2,7 @@ export {
   toDisposable,
   DisposableStore,
   Disposable,
+  URI
 } from './base'
 
 export type {IDisposable, IReference} from './base'
