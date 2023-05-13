@@ -1,6 +1,6 @@
 {
   "name": "@seasonjs/log",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Js log library which copy from vscode",
   "main": "dist/log.js",
   "module": "dist/log.mjs",
