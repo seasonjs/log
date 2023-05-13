@@ -28,6 +28,26 @@ pnpm
 ```bash
 pnpm add @seasonjs/log
 ```
+### special notice
+
+`import {LoggerService} from '@seasonjs/log/node'` this may need package `@vscode/spdlog`
+you may need install it and add `external` key to your builder options
+
+here is an example:
+```typescript
+import {defineConfig} from "vite";
+// this is vite config,but it also work with rollup, as you know.
+export default defineConfig(() => {
+    return {
+        build: {
+            rollupOptions: {
+                external: ['@vscode/spdlog']
+            },
+        },
+    }
+})
+```
+
 
 ### example usage
 
