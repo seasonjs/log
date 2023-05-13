@@ -12,8 +12,6 @@ Js log library which copy from vscode
 
 </p>
 
-Js logger library which copy from vscode
-
 # quick start
 
 ### install

@@ -5,6 +5,8 @@ import {builtinModules} from 'node:module'
 export default defineConfig(() => {
   const builtins = builtinModules.filter(e => !e.startsWith('_'));
   builtins.push(...builtins.map(m => `node:${m}`))
+  builtins.push('@vscode/spdlog')
+
   return {
     build: {
       lib: {
